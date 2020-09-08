@@ -1,0 +1,203 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>PatientAdd</title>
+   
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/js/myclass.js"></script>
+    <script type="text/javascript">
+        var objpatient = new Patient();
+        var objproblem = new PatientProblem();
+        var myList = [];
+        function UpdatePatient() {
+
+            objpatient.name = $("#txtPatientName").val();
+            objpatient.address = $("#txtPatientAddress").val();
+
+        }
+
+        function UpdateProblems() {
+
+
+            objproblem.problem = $("#txtProblem").val();
+            //alert(objproblem.problem);
+            // objpatient.lstproblems.push(objproblem);
+
+
+        }
+
+        function UpdateTreatments() {
+
+            var objtreatment = new Treatment();
+            objtreatment.TreatmentName = $("#txtTreatmentName").val();
+            objtreatment.TreatmentDose = $("#txtTreatmentDosage").val();
+            objproblem.Treatments.push(objtreatment);
+
+            $("#txtTreatmentName").val("");
+            $("#txtTreatmentDosage").val("");
+
+        }
+
+        function UpdateAllProblems() {
+
+            objpatient.lstproblems.push(objproblem);
+            //objproblem.Treatments = [];
+            objproblem = new PatientProblem();
+            $("#txtProblem").val("");
+
+        }
+
+        function FinalSubmit() {
+
+
+            if (objpatient != null) {
+               
+                $.ajax({
+                    type: "POST",
+                    url: "/api/PatientApi",
+                    data: JSON.stringify(objpatient),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+
+
+                        if (response != null) {
+                            objpatient = new Patient();
+                            //objpatient.lstproblems = [];
+                            $("#txtPatientName").val("");
+                            $("#txtPatientAddress").val("");
+                            myList = response;
+                            mynewTable("#tableDynamic", myList);
+                            //tableCreator(myList, "#tableDynamic");
+                        } else {
+                            alert("Something went wrong");
+                        }
+                    },
+                    failure: function (response) {
+                       // alert(response.responseText+"hi");
+                        myList = response.responseText;
+                        myerrorTable("#tableDynamic", myList);
+                    },
+                    error: function (response) {
+                        //alert(response.responseText+"500");
+                        myList = response.responseText;
+                        myerrorTable("#tableDynamic", myList);
+                    }
+                });
+            }
+
+
+        }
+
+
+        function myerrorTable(selectorname, mylist) {
+
+            var trHTML = '';
+            $(selectorname).html("");
+
+            var obj = $.parseJSON(mylist);
+            trHTML += '<h3>Validation Errors</h3>';
+            trHTML += '<table class="table">';
+            trHTML += '<thead><tr><th scope="col">Error Name</th><th scope="col">Error Value</th><th scope="col">Error Code</th></tr ></thead >';
+            $.each(obj, function (i, item) {
+                trHTML += '<tr><td>' + item.memberNames + '</td><td>'
+                    + item.errorMessage + '</td><td>Validation Error</td></tr>';
+            });
+
+
+            trHTML += '</table>';
+            $(selectorname).append(trHTML);
+
+        }
+
+
+        function mynewTable(selectorname, mylist) {
+
+            var trHTML = '';
+            $(selectorname).html("");
+            trHTML += '<table class="table">';
+            trHTML += '<thead><tr><th scope="col">Id</th><th scope="col">Name</th><th scope="col">Address</th></tr ></thead >';
+            $.each(mylist, function (i, item) {
+
+                
+                trHTML += '<tr><td>' + item.id + '</td><td>'
+                    + item.name + '</td><td>'
+                    + item.address + '</td></tr>';
+
+
+                if (item.lstproblems.length > 0) {
+
+                    trHTML += '<tr><td colspan="3"><table class="table">';
+                    trHTML += '<tr><th><strong>Problems For ' + item.name +'</strong></th></tr>';
+                   
+                    $.each(item.lstproblems, function (i, itemproblem) {
+
+                        trHTML += '<tr><th>' + itemproblem.problem + '</th></tr>';
+
+                        if (itemproblem.treatments.length > 0) {
+
+                            trHTML += '<tr><td colspan="3"><table class="table">';
+                            trHTML += '<tr><th><strong>Treatments For Problem ' + itemproblem.problem + ' For Patient ' + item.name +'</strong></th></tr>';
+                            $.each(itemproblem.treatments, function (i, itemtreatment) {
+                                trHTML += '<tr><td>Treatment Name</td><td>'
+                                    + itemtreatment.treatmentName + '</td></tr><tr><td>Treatment Dose</td><td>'
+                                    + itemtreatment.treatmentDose + '</td></tr>';
+                            });
+                            trHTML += '</table></td></tr>';
+
+                        }
+
+
+
+                    });
+
+                    trHTML += '</table></td></tr>';
+                }
+       
+
+
+            })
+            trHTML += '</table>';
+            $(selectorname).append(trHTML);
+        }
+    </script>
+</head>
+<body>
+
+<div class="container">
+    Patient Name <input type="text" onchange="UpdatePatient()" id="txtPatientName" name="txtPatientName" value="" />
+    Patient Address <input type="text" onchange="UpdatePatient()" id="txtPatientAddress" name="txtPatientAddress" value="" />
+
+
+    <br />
+
+    Problem Name <input type="text" id="txtProblem" onchange="UpdateProblems()" name="txtProblem" value="" />
+    <br />
+
+    Treatment Name <input type="text" id="txtTreatmentName" name="txtTreatmentName" value="" />
+    Treatment Dosage <input type="text" id="txtTreatmentDosage" name="txtTreatmentDosage" value="" />
+    <br />
+    <input type="button" name="Sub" onclick="UpdateTreatments()" value="Add Problem Treatment" />
+    <br />
+    <input type="button" name="Sub" onclick="UpdateAllProblems()" value="Update All Problems" />
+    <br />
+    <input type="button" name="Sub" onclick="FinalSubmit()" value="Add Final" />
+
+    
+
+    <h1>Patient - Problem - Treatments </h1>
+
+    <div id="tableDynamic">
+
+    </div>
+
+</div>
+</body>
+</html>

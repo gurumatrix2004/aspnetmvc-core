@@ -1,0 +1,9 @@
+D:\MVCWillis\WebApplication1\Customer\bin\Debug\netcoreapp3.1\Patient.deps.json
+D:\MVCWillis\WebApplication1\Customer\bin\Debug\netcoreapp3.1\Patient.dll
+D:\MVCWillis\WebApplication1\Customer\bin\Debug\netcoreapp3.1\Patient.pdb
+D:\MVCWillis\WebApplication1\Customer\obj\Debug\netcoreapp3.1\Patient.AssemblyInfoInputs.cache
+D:\MVCWillis\WebApplication1\Customer\obj\Debug\netcoreapp3.1\Patient.AssemblyInfo.cs
+D:\MVCWillis\WebApplication1\Customer\obj\Debug\netcoreapp3.1\Patient.csproj.CoreCompileInputs.cache
+D:\MVCWillis\WebApplication1\Customer\obj\Debug\netcoreapp3.1\Patient.dll
+D:\MVCWillis\WebApplication1\Customer\obj\Debug\netcoreapp3.1\Patient.pdb
+D:\MVCWillis\WebApplication1\Customer\obj\Debug\netcoreapp3.1\Patient.csprojAssemblyReference.cache

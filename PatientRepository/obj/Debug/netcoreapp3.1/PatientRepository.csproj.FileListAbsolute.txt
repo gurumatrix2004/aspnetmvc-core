@@ -1,0 +1,12 @@
+D:\MVCWillis\WebApplication1\PatientRepository\bin\Debug\netcoreapp3.1\PatientRepository.deps.json
+D:\MVCWillis\WebApplication1\PatientRepository\bin\Debug\netcoreapp3.1\PatientRepository.dll
+D:\MVCWillis\WebApplication1\PatientRepository\bin\Debug\netcoreapp3.1\PatientRepository.pdb
+D:\MVCWillis\WebApplication1\PatientRepository\bin\Debug\netcoreapp3.1\Patient.dll
+D:\MVCWillis\WebApplication1\PatientRepository\bin\Debug\netcoreapp3.1\Patient.pdb
+D:\MVCWillis\WebApplication1\PatientRepository\obj\Debug\netcoreapp3.1\PatientRepository.csprojAssemblyReference.cache
+D:\MVCWillis\WebApplication1\PatientRepository\obj\Debug\netcoreapp3.1\PatientRepository.AssemblyInfoInputs.cache
+D:\MVCWillis\WebApplication1\PatientRepository\obj\Debug\netcoreapp3.1\PatientRepository.AssemblyInfo.cs
+D:\MVCWillis\WebApplication1\PatientRepository\obj\Debug\netcoreapp3.1\PatientRepository.csproj.CoreCompileInputs.cache
+D:\MVCWillis\WebApplication1\PatientRepository\obj\Debug\netcoreapp3.1\PatientRepository.csproj.CopyComplete
+D:\MVCWillis\WebApplication1\PatientRepository\obj\Debug\netcoreapp3.1\PatientRepository.dll
+D:\MVCWillis\WebApplication1\PatientRepository\obj\Debug\netcoreapp3.1\PatientRepository.pdb
